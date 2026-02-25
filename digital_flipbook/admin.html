@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Flipbook</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #130329);
+      min-height: 100vh;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .admin-card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .title-gradient {
+      background: linear-gradient(90deg, #c080f4, #8160a2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-weight: 700;
+    }
+
+    input[type="file"] {
+      background: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+    }
+
+    input[type="file"]::-webkit-file-upload-button {
+      background: linear-gradient(135deg, #541f77, #81529c);
+      border: none;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .upload-btn {
+      background: linear-gradient(135deg,  #c080f4, #8160a2);
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      transition: all 0.35s ease;
+    }
+
+    .upload-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(162, 106, 171, 0.6);
+    }
+
+    #status {
+      font-weight: 500;
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.6;
+      }
+    }
+
+    .footer-text {
+      opacity: 0.6;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body class="text-white">
+
+  <div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="col-md-6">
+
+      <h2 class="text-center mb-4 title-gradient">
+        📘 Flipbook BY PURPLEPAGETHREE
+      </h2>
+
+      <div class="admin-card p-4">
+        <p class="text-center text-light mb-3">
+          Upload Images or PDF to generate your flipbook
+        </p>
+
+        <input type="file" id="fileInput" class="form-control mb-3" multiple accept=".jpg,.png,.pdf">
+
+        <button class="btn upload-btn w-100 py-2" onclick="upload()">
+          🚀 Upload & Open Flipbook
+        </button>
+
+        <p id="status" class="text-center text-success mt-3"></p>
+      </div>
+
+      <p class="text-center footer-text mt-3">
+        Supported formats: JPG, PNG, PDF
+      </p>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="admin.js"></script>
+
+</body>
+
+</html>
