@@ -93,7 +93,8 @@ function checkDone() {
     document.getElementById("status").innerText =
       "Upload complete! Opening flipbook...";
     setTimeout(() => {
-      window.location.href = "index.html";
+      window.location.href = "flipbook.html";
     }, 500);
   }
 }
+
