@@ -3,7 +3,7 @@ let totalToSave = 0;
 let savedCount = 0;
 
 // Open DB
-const request = indexedDB.open("FlipbookDB", 1);
+const request = indexedDB.open("FlipbookDB", 2);
 
 request.onupgradeneeded = e => {
   db = e.target.result;
@@ -97,4 +97,5 @@ function checkDone() {
     }, 500);
   }
 }
+
 
