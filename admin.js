@@ -3,7 +3,7 @@ let totalToSave = 0;
 let savedCount = 0;
 
 // Open DB
-const request = indexedDB.open("FlipbookDB", 2);
+const request = indexedDB.open("FlipbookDB", 1);
 
 request.onupgradeneeded = e => {
   db = e.target.result;
@@ -39,12 +39,28 @@ function upload() {
     for (let file of files) {
       if (file.type === "application/pdf") {
         handlePDF(file);
-      } else {
+      } else if (file.type.startsWith("image/")) {
         totalToSave++;
-        savePage(URL.createObjectURL(file));
+        fileToDataURL(file).then(savePage).catch(err => {
+          console.error("Image conversion failed", err);
+          savedCount++;
+          checkDone();
+        });
+      } else {
+        console.warn("Skipping unsupported file type:", file.type);
       }
     }
   };
+}
+
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 // Save page
@@ -97,5 +113,4 @@ function checkDone() {
     }, 500);
   }
 }
-
 
