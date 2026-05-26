@@ -124,3 +124,4 @@ function fullscreen() {
     document.exitFullscreen();
   }
 }
+
