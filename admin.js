@@ -1,4 +1,5 @@
 let db;
+let dbReady = false;
 let totalToSave = 0;
 let savedCount = 0;
 
@@ -14,6 +15,11 @@ request.onupgradeneeded = e => {
 
 request.onsuccess = e => {
   db = e.target.result;
+  dbReady = true;
+};
+
+request.onerror = e => {
+  console.error("IndexedDB failed to open", e.target.error);
 };
 
 // Upload handler
@@ -26,11 +32,21 @@ function upload() {
     return;
   }
 
+  if (!dbReady || !db) {
+    status.innerText = "Please wait while storage initializes, then try again.";
+    return;
+  }
+
   status.innerText = "Uploading...";
 
   // Clear old data
   const clearTx = db.transaction("pages", "readwrite");
   clearTx.objectStore("pages").clear();
+
+  clearTx.onerror = e => {
+    console.error("Failed to clear old pages", e.target.error);
+    status.innerText = "Unable to prepare storage, refresh and try again.";
+  };
 
   clearTx.oncomplete = () => {
     totalToSave = 0;
